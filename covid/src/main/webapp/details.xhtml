@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                <f:metadata>
+                    <f:viewParam name="regionID" value="#{demo.tempRegion.uuid}" var="regionID" />
+                </f:metadata>
+
+                <table>
+                    <tr>
+                        <td>Ime:</td>
+                        <td>#{demo.tempRegion.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Število prebivalcev:</td>
+                        <td>#{demo.tempRegion.numOfInhabitants}</td>
+                    </tr>
+                    <tr>
+                        <td><h:commandButton value="Uredi" action="updateRegion.xhtml"/></td>
+                        <td><h:commandButton value="Pobrisi" actionListener="#{demo.deleteRegion}" action="data.xhtml"/></td>
+                    </tr>
+                </table>
+            </h:form>
+            <h:form>
+                <p:dataTable value="#{demo.tempRegion.calendar}" var="c">
+                    <p:column>#{c.infected}</p:column>
+                    <p:column>#{c.hospitalized}</p:column>
+                    <p:column>#{c.tested}</p:column>
+                    <p:column>#{c.day.time}</p:column>
+                    <p:column><h:commandButton value="Uredi" actionListener="#{demo.setTempDataByID(c.uuid)}" action="updateData.xhtml"/></p:column>
+                    <p:column><h:commandButton value="Pobrisi" actionListener="#{demo.deleteData(c.uuid)}" action="data.xhtml"/></p:column>
+                    <p:column>
+                        <h:commandButton value="Kopiraj" actionListener="#{demo.cloneData(c)}"/>
+                    </p:column>
+                </p:dataTable>
+                <h:commandButton value="Dodaj podatkov" action="addData.xhtml"/>
+            </h:form>
+        </f:view>
+        <p:dialog header="Uredi Klonirane Podatke" widgetVar="cloneDialog" styleClass="w-75" minHeight="40">
+            <p:growl id="petar"/>
+            <h:form>
+                <table border="0">
+                    <tr>
+                        <td>Okuženi:</td>
+                        <td><h:inputText value="#{demo.tempData.infected}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Hospitalizirani:</td>
+                        <td><h:inputText value="#{demo.tempData.hospitalized}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Testirani:</td>
+                        <td><h:inputText value="#{demo.tempData.tested}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Datum:</td>
+                        <td>
+                            <p:calendar id="button" value="#{demo.tempData.day.time}" showOn="button">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:calendar>
+                        </td>
+                    </tr>
+                </table>
+                <p:commandButton value="OK" update="petar" action="#{demo.addData}"/>
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>
+
+</html>

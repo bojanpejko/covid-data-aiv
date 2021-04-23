@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+
+                <table border="0">
+                    <tr>
+                        <td>Ime:</td>
+                        <td><h:inputText value="#{demo.tempRegion.name}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Število prebivalcev:</td>
+                        <td><h:inputText value="#{demo.tempRegion.numOfInhabitants}"/></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2"><h:commandButton value="Uredi" actionListener="#{demo.updateRegion}" action="data.xhtml"/></td>
+                    </tr>
+                </table>
+
+            </h:form>
+        </f:view>
+    </ui:define>
+
+</ui:composition>
+
+</html>

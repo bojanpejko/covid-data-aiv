@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="WEB-INF/loginTemplate.xhtml">
+
+    <ui:define name="naslov">Prijava</ui:define>
+
+    <ui:define name="upIme">
+        <input type="text" name="j_username"/>
+    </ui:define>
+
+    <ui:define name="upGeslo">
+        <input type="password" name="j_password"/>
+    </ui:define>
+
+    <ui:define name="upPrijava">
+        <input type="submit" value="OK" class="btn btn-outline-dark"/>
+    </ui:define>
+
+</ui:composition>
+</html>

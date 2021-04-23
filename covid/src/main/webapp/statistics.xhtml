@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <f:view>
+
+            <h:form>
+                <p:selectOneButton value="#{demo.option}">
+                    <f:selectItem itemLabel="Najnovejši" itemValue="1"/>
+                    <f:selectItem itemLabel="Odstotkom" itemValue="2"/>
+                    <f:selectItem itemLabel="Kritičnost" itemValue="3"/>
+                </p:selectOneButton>
+
+                <p:commandButton value="Filtriraj" action="#{demo.addData}" />
+
+                <p:dataTable value="#{demo.allData}" var="d">
+                    <f:facet name="header">
+                        <h:outputText value="Podatke"/>
+                    </f:facet>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Okuženi"/>
+                        </f:facet>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Hospitalizirani"/>
+                        </f:facet>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Testirani"/>
+                        </f:facet>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Datum"/>
+                        </f:facet>
+                    </p:column>
+
+                    <p:column>#{d.infected}</p:column>
+                    <p:column>#{d.hospitalized}</p:column>
+                    <p:column>#{d.tested}</p:column>
+                    <p:column>#{d.day.time}</p:column>
+                </p:dataTable>
+            </h:form>
+        </f:view>
+    </ui:define>
+
+</ui:composition>
+
+</html>

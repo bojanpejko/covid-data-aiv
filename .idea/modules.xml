@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JMSClient/JMSClient.iml" filepath="$PROJECT_DIR$/JMSClient/JMSClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Projekt.iml" filepath="$PROJECT_DIR$/.idea/Projekt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RESTClient/RESTClient.iml" filepath="$PROJECT_DIR$/RESTClient/RESTClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SOAPClient/SOAPClient.iml" filepath="$PROJECT_DIR$/SOAPClient/SOAPClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/covid/covid.iml" filepath="$PROJECT_DIR$/covid/covid.iml" />
+    </modules>
+  </component>
+</project>
