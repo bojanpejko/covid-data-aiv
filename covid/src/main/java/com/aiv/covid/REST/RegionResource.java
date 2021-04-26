@@ -64,13 +64,13 @@ public class RegionResource {
         log.info("update() => Updating resource");
 
         Region region = updateRegionDTO.createRegionFormDTO();
-
         Region regionToBeUpdated = regionDao.getByID(uuid).orElseThrow(() -> new NotFoundException("Region not found"));
-        region.setUuid(regionToBeUpdated.getUuid());
-        region.setStatus(regionToBeUpdated.getStatus());
-        region.redefineZoneStatus();
 
-        regionDao.save(region);
+        regionToBeUpdated.setName(region.getName());
+        regionToBeUpdated.setNumOfInhabitants(region.getNumOfInhabitants());
+        regionToBeUpdated.redefineZoneStatus();
+
+        regionDao.save(regionToBeUpdated);
 
         return Response.noContent().build();
     }

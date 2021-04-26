@@ -2,8 +2,9 @@ package com.aiv.covid.REST;
 
 import com.aiv.covid.dao.DataDao;
 import com.aiv.covid.dao.RegionDao;
-import com.aiv.covid.dto.data.CreateAndUpdateDTO;
+import com.aiv.covid.dto.data.CreateDataDTO;
 import com.aiv.covid.dto.data.GetDataDTO;
+import com.aiv.covid.dto.data.UpdateDataDTO;
 import com.aiv.covid.observer.ObserverInterface;
 import com.aiv.covid.observer.ObserverType;
 import com.aiv.covid.observer.observers.MailObserver;
@@ -53,11 +54,11 @@ public class DataResource {
     }
 
     @POST
-    public Response create(@Valid CreateAndUpdateDTO createAndUpdateDTO, @Context UriInfo uriInfo){
+    public Response create(@Valid CreateDataDTO createDataDTO, @Context UriInfo uriInfo){
         log.info("create() => Creating new resource");
 
-        InfectedData data = createAndUpdateDTO.createDataFromDTO();
-        Region region = regionDao.getByID(createAndUpdateDTO.getRegionID()).orElseThrow(() -> new NotFoundException("Region not found"));
+        InfectedData data = createDataDTO.createDataFromDTO();
+        Region region = regionDao.getByID(createDataDTO.getRegionID()).orElseThrow(() -> new NotFoundException("Region not found"));
 
         data.setRegion(region);
         region.addDailyData(data);
@@ -87,22 +88,17 @@ public class DataResource {
 
     @PUT
     @Path("{UUID}")
-    public Response update(@Valid CreateAndUpdateDTO createAndUpdateDTO, @PathParam("UUID") UUID uuid){
+    public Response update(@Valid UpdateDataDTO updateDTO, @PathParam("UUID") UUID uuid){
         log.info("update() => Updating resource");
 
-        InfectedData data = createAndUpdateDTO.createDataFromDTO();
+        InfectedData data = updateDTO.createDataFromDTO();
 
         InfectedData dataToBeUpdated = dataDao.getByID(uuid).orElseThrow(() -> new NotFoundException("Data not found"));
-
         dataToBeUpdated.setInfected(data.getInfected());
         dataToBeUpdated.setHospitalized(data.getHospitalized());
         dataToBeUpdated.setTested(data.getTested());
-        dataToBeUpdated.setDay(data.getDay());
 
-        Region region = regionDao.getByID(createAndUpdateDTO.getRegionID()).orElseThrow(() -> new NotFoundException("Region not found"));
-
-        dataToBeUpdated.setRegion(region);
-        dataToBeUpdated.getRegion().redefineZoneStatus();
+        Region region = regionDao.getByID(dataToBeUpdated.getRegion().getUuid()).orElseThrow(() -> new NotFoundException("Region not found"));
 
         RegionAdministrator regionAdministrator = regionDao.getAdminByID(region.getAdminID()).orElseThrow(() -> new NotFoundException("Admin not found"));
 
@@ -115,9 +111,12 @@ public class DataResource {
             }
 
         }
-        region.notifyObservers(ObserverType.ADD);
-
         dataDao.save(dataToBeUpdated);
+
+        region.redefineZoneStatus();
+        regionDao.save(region);
+
+        region.notifyObservers(ObserverType.ADD);
 
         return Response.noContent().build();
     }

@@ -11,11 +11,13 @@ import java.util.UUID;
 
 @Data
 @Entity
-@NamedQueries(
+@NamedQueries({
+        @NamedQuery(name = RegionAdministrator.getAll, query = "SELECT a FROM RegionAdministrator a"),
         @NamedQuery(name = RegionAdministrator.getByID, query = "SELECT a FROM RegionAdministrator a WHERE a.uuid = :uuid")
-)
+})
 public class RegionAdministrator {
 
+    public static final String getAll = "RegionAdministrator.getAll";
     public static final String getByID = "RegionAdministrator.getByID";
 
     private static RegionAdministrator instance = null;

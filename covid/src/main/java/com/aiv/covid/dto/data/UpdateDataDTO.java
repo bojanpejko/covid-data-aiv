@@ -3,12 +3,10 @@ package com.aiv.covid.dto.data;
 import com.aiv.covid.vao.InfectedData;
 import lombok.Data;
 
-import java.util.UUID;
+import java.util.Calendar;
 
 @Data
-public class CreateAndUpdateDTO {
-
-    private UUID regionID;
+public class UpdateDataDTO {
 
     private int infected;
 
@@ -19,10 +17,10 @@ public class CreateAndUpdateDTO {
     public InfectedData createDataFromDTO(){
         InfectedData data = new InfectedData();
 
-        data.setUuid(UUID.randomUUID());
         data.setTested(tested);
         data.setInfected(infected);
         data.setHospitalized(hospitalized);
+        data.setDay(Calendar.getInstance());
 
         return data;
     }

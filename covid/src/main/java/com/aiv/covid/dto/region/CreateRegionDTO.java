@@ -1,6 +1,7 @@
 package com.aiv.covid.dto.region;
 
 import com.aiv.covid.vao.Region;
+import com.aiv.covid.vao.ZoneStatus;
 import lombok.Data;
 
 import java.util.UUID;
@@ -20,6 +21,7 @@ public class CreateRegionDTO {
         region.setName(name);
         region.setNumOfInhabitants(number);
         region.setAdminID(adminID);
+        region.setStatus(ZoneStatus.GREEN);
 
         return region;
     }
