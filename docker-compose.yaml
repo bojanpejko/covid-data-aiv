@@ -1,0 +1,27 @@
+version: '3'
+services:
+  # Create frontend container
+  frontend:
+    build: ./covid-data-aiv
+    ports:
+      - "3000:3000"
+    container_name: frontend-aiv
+    restart: always
+    links:
+      - backend
+  # Create backend container
+  backend:
+    build: ./covid
+    ports:
+      - "8080:8080"
+    container_name: backend-aiv
+    restart: always
+    links:
+      - db
+  # Create database container
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    container_name: db-aiv
+    restart: always
