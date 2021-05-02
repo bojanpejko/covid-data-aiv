@@ -91,6 +91,9 @@
           <element id="library" level="project" name="Maven: jakarta.xml.soap:jakarta.xml.soap-api:1.4.2" />
           <element id="library" level="project" name="Maven: jakarta.jws:jakarta.jws-api:2.1.0" />
           <element id="library" level="project" name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5" />
+          <element id="library" level="project" name="Maven: org.testng:testng:7.4.0" />
+          <element id="library" level="project" name="Maven: com.beust:jcommander:1.78" />
+          <element id="library" level="project" name="Maven: org.webjars:jquery:3.5.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

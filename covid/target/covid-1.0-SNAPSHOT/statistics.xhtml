@@ -11,13 +11,26 @@
         <f:view>
 
             <h:form>
+
                 <p:selectOneButton value="#{demo.option}">
                     <f:selectItem itemLabel="Najnovejši" itemValue="1"/>
                     <f:selectItem itemLabel="Odstotkom" itemValue="2"/>
                     <f:selectItem itemLabel="Kritičnost" itemValue="3"/>
                 </p:selectOneButton>
 
-                <p:commandButton value="Filtriraj" action="#{demo.addData}" />
+                <p:selectOneMenu id="zoneOption" value="#{demo.zoneStatus}">
+                    <f:selectItem itemLabel="Kritičnost" itemValue=""/>
+                    <f:selectItem itemLabel="Zelena" itemValue="GREEN"/>
+                    <f:selectItem itemLabel="Rumena" itemValue="YELLOW"/>
+                    <f:selectItem itemLabel="Oranža" itemValue="ORANGE"/>
+                    <f:selectItem itemLabel="Rdeča" itemValue="RED"/>
+                    <f:selectItem itemLabel="Črna" itemValue="BLACK"/>
+                    <f:facet name="footer">
+                        <h:outputText value="3 options" style="font-weight:bold;"/>
+                    </f:facet>
+                </p:selectOneMenu>
+
+                <p:commandButton value="Filtriraj" action="#{demo.syncDataContainer}" />
 
                 <p:dataTable value="#{demo.allData}" var="d">
                     <f:facet name="header">
@@ -28,30 +41,30 @@
                         <f:facet name="header">
                             <h:outputText value="Okuženi"/>
                         </f:facet>
+                        <h:outputText value="#{d.infected}"/>
                     </p:column>
 
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Hospitalizirani"/>
                         </f:facet>
+                        <h:outputText value="#{d.hospitalized}"/>
                     </p:column>
 
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Testirani"/>
                         </f:facet>
+                        <h:outputText value="#{d.tested}"/>
                     </p:column>
 
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Datum"/>
                         </f:facet>
+                        <h:outputText value="#{d.day.time}"/>
                     </p:column>
 
-                    <p:column>#{d.infected}</p:column>
-                    <p:column>#{d.hospitalized}</p:column>
-                    <p:column>#{d.tested}</p:column>
-                    <p:column>#{d.day.time}</p:column>
                 </p:dataTable>
             </h:form>
         </f:view>

@@ -16,10 +16,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
 import java.io.Serializable;
 import java.util.*;
@@ -61,7 +61,16 @@ public class MainBean implements Serializable {
     @Setter
     private String option = "0";
 
-    private DataDialogManager dialogManager = DataDialogManager.getInstance();
+    @Getter
+    @Setter
+    private String zoneStatus;
+
+    private final DataDialogManager dialogManager = DataDialogManager.getInstance();
+
+    @PostConstruct
+    public void init(){
+        syncDataContainer();
+    }
 
     private void syncRegionContainer(){ adminRegions = regionBean.getByAdminID(currentAdmin.getUuid()); }
 
@@ -152,20 +161,25 @@ public class MainBean implements Serializable {
 
     public void syncDataContainer(){
         switch(Integer.parseInt(option)){
-            case 0:
-                allData = dataBean.getAll();
-                break;
             case 1:
-                filterByDate();
+                filterByDate(new DataRepository(dataBean.getAll()));
+                option = "0";
                 break;
             case 2:
                 filterByPercentage();
+                option = "0";
+                break;
+            case 3:
+                filterByZone(ZoneStatus.valueOf(zoneStatus));
+                option = "0";
+                break;
+            default:
+                allData = dataBean.getAll();
                 break;
         }
     }
 
-    private void filterByDate(){
-        DataRepository dataRepository = new DataRepository(allData);
+    private void filterByDate(DataRepository dataRepository){
         allData.clear();
 
         for(Iterator itr = dataRepository.getIterator(); itr.hasNext();){
@@ -180,7 +194,7 @@ public class MainBean implements Serializable {
     }
 
     private void filterByPercentage(){
-        DataRepository dataRepository = new DataRepository(allData);
+        DataRepository dataRepository = new DataRepository(dataBean.getAll());
         allData.clear();
 
         for(Iterator itr = dataRepository.getIterator(); itr.hasNext();){
@@ -192,11 +206,11 @@ public class MainBean implements Serializable {
             }
         }
 
-        filterByDate();
+        //filterByDate(new DataRepository(allData));
     }
 
     public void filterByZone(ZoneStatus status){
-        DataRepository dataRepository = new DataRepository(allData);
+        DataRepository dataRepository = new DataRepository(dataBean.getAll());
         allData.clear();
 
         for(Iterator itr = dataRepository.getIterator(); itr.hasNext();){
@@ -207,7 +221,7 @@ public class MainBean implements Serializable {
             }
         }
 
-        filterByDate();
+        //filterByDate(new DataRepository(allData));
     }
 
 }

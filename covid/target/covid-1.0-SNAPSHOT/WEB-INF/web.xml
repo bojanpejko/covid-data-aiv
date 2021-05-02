@@ -7,7 +7,7 @@
     <display-name>AIV</display-name>
 
     <welcome-file-list>
-        <welcome-file>/faces/login.xhtml</welcome-file>
+        <welcome-file>/login.xhtml</welcome-file>
     </welcome-file-list>
 
     <servlet>
@@ -18,7 +18,7 @@
 
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -38,19 +38,7 @@
         <display-name>StatisticsConstraint</display-name>
         <web-resource-collection>
             <web-resource-name>statistics</web-resource-name>
-            <url-pattern>/faces/statistics.xhtml</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>admin</role-name>
-            <role-name>viewer</role-name>
-        </auth-constraint>
-    </security-constraint>
-
-    <security-constraint>
-        <display-name>LoginConstraint</display-name>
-        <web-resource-collection>
-            <web-resource-name>login</web-resource-name>
-            <url-pattern>/faces/login.xhtml</url-pattern>
+            <url-pattern>/statistics.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
@@ -62,7 +50,7 @@
         <display-name>DataConstraint</display-name>
         <web-resource-collection>
             <web-resource-name>data</web-resource-name>
-            <url-pattern>/faces/data.xhtml</url-pattern>
+            <url-pattern>/data.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
@@ -74,7 +62,7 @@
         <display-name>AddConstraint</display-name>
         <web-resource-collection>
             <web-resource-name>add</web-resource-name>
-            <url-pattern>/faces/add.xhtml</url-pattern>
+            <url-pattern>/add.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
@@ -84,8 +72,8 @@
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <form-login-page>/faces/login.xhtml</form-login-page>
-            <form-error-page>/faces/login.xhtml</form-error-page>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/login.xhtml</form-error-page>
         </form-login-config>
     </login-config>
 

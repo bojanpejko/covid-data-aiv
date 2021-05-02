@@ -3,7 +3,7 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core">
+        xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <meta charset="UTF-8" />
@@ -14,13 +14,29 @@
 
     <div id="header">
         <ui:insert name="header">
-            [
-            <a href="#{facesContext.externalContext.applicationContextPath}/login.xhtml">Login</a> |
-            <a href="#{facesContext.externalContext.applicationContextPath}/data.xhtml">Region data</a> |
-            <a href="#{facesContext.externalContext.applicationContextPath}/add.xhtml">Add region</a> |
-            <a href="#{facesContext.externalContext.applicationContextPath}/statistics.xhtml">All data</a>
-            ]
-            <hr/>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <p:outputLabel styleClass="navbar-brand" value="AIV" />
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <h:link styleClass="nav-link" value="Prijava" outcome="login.xhtml?faces-redirect=true"/>
+                        </li>
+                        <li class="nav-item">
+                            <h:link styleClass="nav-link" value="Podatke" outcome="data.xhtml?faces-redirect=true"/>
+                        </li>
+                        <li class="nav-item">
+                            <h:link styleClass="nav-link" value="Dodaj" outcome="add.xhtml?faces-redirect=true"/>
+                        </li>
+                        <li class="nav-item">
+                            <h:link styleClass="nav-link" value="Statistike" outcome="statistics.xhtml?faces-redirect=true"/>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </ui:insert>
     </div>
 
