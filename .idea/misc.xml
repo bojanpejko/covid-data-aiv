@@ -2,6 +2,7 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/covid" />
+    <file type="web" url="file://$PROJECT_DIR$/CovidWeb" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -10,6 +11,8 @@
         <option value="$PROJECT_DIR$/SOAPClient/pom.xml" />
         <option value="$PROJECT_DIR$/JMSClient/pom.xml" />
         <option value="$PROJECT_DIR$/RESTClient/pom.xml" />
+        <option value="$PROJECT_DIR$/covid/CovidEnterprise/pom.xml" />
+        <option value="$PROJECT_DIR$/CovidWeb/pom.xml" />
       </list>
     </option>
   </component>

@@ -7,21 +7,36 @@ services:
       - "3000:3000"
     container_name: frontend-aiv
     restart: always
-    links:
+    depends_on:
       - backend
+    stdin_open: true
   # Create backend container
   backend:
-    build: ./covid
+    build: ./covid/target
+    expose:
+      - "8080"
     ports:
       - "8080:8080"
+      - "9990:9990"
     container_name: backend-aiv
     restart: always
-    links:
+    depends_on:
       - db
   # Create database container
   db:
-    image: mysql
+    image: mysql:5.7
+    expose:
+      - "3306"
     ports:
       - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
     container_name: db-aiv
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: bojanSQL
+      MYSQL_DATABASE: aivdb
+    volumes:
+      - my-db:/var/lib/mysql
+
+volumes:
+  my-db:
